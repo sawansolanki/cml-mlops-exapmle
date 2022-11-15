@@ -1,5 +1,11 @@
 name: CML
-on: [push]
+on:
+  push:
+  pull_request:
+    branches:    
+      - main
+      - 'experiment'
+      - 'releases/**'
 jobs:
   train-and-report:
     runs-on: ubuntu-latest
@@ -7,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.sha }}
         
       - run: |
           pip install -r requirements.txt
